@@ -1,14 +1,41 @@
 <body></body>
 <script>
-
-  const gif = document.createElement('img')
-  gif.src = 'Welcome00049.gif'
-  gif.style.position = 'absolute'
-  gif.style.top = Math.random() * 100 + 'px'
-  gif.style.left = '100px'
-  document.body.appendChild(gif)
+  let gif
+  let xOffset = 47
+  let yOffset = 40
+  let cx = (window.innerWidth / 2) - xOffset
+  let cy = (window.innerHeight / 2) - yOffset
+  let x = 0
+  let y = 0
+  let theta = 0
+  let radius = 100
+//   function createGif(x, y) {
+    
+//   }
+  function draw () {
+    requestAnimationFrame(draw)
+    theta += 0.05
+    y = Math.sin(theta) * radius + cy
+    x = Math.cos(theta) * radius + cx
+    gif.style.top = y + 'px'
+    gif.style.left = x + 'px'
+  }
   
-  document.body.style.backgroundColor = '#ffceb4'
+  function setup() {
+    // add image element to the page
+    gif = document.createElement('img')
+    gif.src = 'heartface.gif' + '#' + Math.random()
+    document.body.appendChild(gif)
+    // change img element's CSS position
+    gif.style.position = 'absolute'
+    gif.style.left = x + 'px'
+    gif.style.top = y + 'px'
+    // start the animation loop
+    draw()
+  }
+  // document.body.style.backgroundColor = '#ffceb4'
   document.body.style.overflow = 'hidden'
+  
+  window.addEventListener('load', setup)
   
 </script>
