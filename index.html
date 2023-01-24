@@ -1,40 +1,44 @@
+<head>
+  <meta charset="utf-8">
+  <title>ferret</title>
+  <style>
+    body {
+			background: radial-gradient(circle, rgba(255,206,180,1) 0%, rgba(229,133,202,1) 70%);
+/*       background-color: radial-gradient(circle, rgba(229,133,202,1) 0%, rgba(255,206,180,1) 70%); */
+    }
+  </style>
+</head>
 <body></body>
 <script>
-  let gif
-  let xOffset = 47
-  let yOffset = 40
-  let cx = (window.innerWidth / 2) - xOffset
-  let cy = (window.innerHeight / 2) - yOffset
-  let x = 0
-  let y = 0
-  let theta = 0
-  let radius = 100
-//   function createGif(x, y) {
-    
-//   }
-  function draw () {
-    requestAnimationFrame(draw)
-    theta += 0.05
-    y = Math.sin(theta) * radius + cy
-    x = Math.cos(theta) * radius + cx
+  const xOffset = 47
+  const yOffset = 40
+
+  function createGif (x, y) {
+    const gif = document.createElement('img')
+    gif.src = 'heartface.gif' + '#' + Math.random()
+    document.body.appendChild(gif)
+    gif.style.position = 'absolute'
     gif.style.top = y + 'px'
     gif.style.left = x + 'px'
   }
   
-  function setup() {
-    // add image element to the page
-    gif = document.createElement('img')
-    gif.src = 'heartface.gif' + '#' + Math.random()
-    document.body.appendChild(gif)
-    // change img element's CSS position
-    gif.style.position = 'absolute'
-    gif.style.left = x + 'px'
-    gif.style.top = y + 'px'
-    // start the animation loop
-    draw()
+  function createGifCircle (num, scale, radius) {
+    for (let i = 0; i < num; i++) {
+      const cx = window.innerWidth / 2 - xOffset
+    	const cy = window.innerHeight / 2 - yOffset
+      const x = Math.cos(i * scale) * radius + cx
+      const y = Math.sin(i * scale) * radius + cy
+    	createGif(x, y)
+    }
   }
-  // document.body.style.backgroundColor = '#ffceb4'
-  document.body.style.overflow = 'hidden'
+  
+  function setup() {
+    // document.body.style.backgroundColor = '#ffceb4'
+  	document.body.style.overflow = 'hidden'
+    createGifCircle(12, 0.53, 100)
+    setTimeout(createGifCircle, 500, 24, 0.99, 200)
+    setTimeout(createGifCircle, 1000, 36, 0.81, 300)
+  }
   
   window.addEventListener('load', setup)
   
